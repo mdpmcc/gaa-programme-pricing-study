@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GAA Match Programme Service — Pricing Survey (3 minutes)</title>
+<style>
+  :root{--ink:#12331f;--accent:#1e7a44;--bg:#f6f8fa}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+  body{background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+  .wrap{max-width:720px;margin:32px auto;padding:0 20px}
+  .card{background:#fff;border:1px solid #dbe3ea;border-radius:12px;padding:28px;margin-bottom:18px}
+  h1{font-size:24px;margin-bottom:6px}
+  h2{font-size:17px;margin:18px 0 8px;color:#0e3b22}
+  p.lead{color:#44586f;margin-bottom:14px}
+  label{display:block;font-weight:600;margin:12px 0 4px}
+  input[type=number],select,input[type=text],input[type=email]{width:100%;padding:10px;border:1px solid #c3ced9;border-radius:8px;font-size:15px;background:#fbfdfe}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .radio-row,.check-row{margin:4px 0}
+  .radio-row label,.check-row label{font-weight:500;display:inline;margin-left:8px}
+  .hint{font-size:12.5px;color:#7a8898;margin-top:4px}
+  .consent{background:#eaf2eb;border:1px solid #bcd3c2;border-radius:10px;padding:14px 18px;font-size:13.5px;color:#27412f;margin-bottom:18px}
+  .btn{display:inline-block;background:var(--accent);color:#fff;border:none;text-decoration:none;font-weight:700;padding:13px 30px;border-radius:9px;font-size:16px;cursor:pointer}
+  .btn.secondary{background:#fff;color:var(--accent);border:1.5px solid var(--accent)}
+  .err{color:#b00020;font-size:13.5px;margin-top:8px;display:none}
+  .done{display:none;text-align:center}
+  .done h2{color:var(--accent);font-size:22px}
+  footer{text-align:center;color:#7a8898;font-size:12px;margin:26px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="consent">
+<strong>About this survey &amp; your data (GDPR):</strong> 3 minutes, 11 questions. Our club is running a
+pricing study for a club match-programme service — we ask about your club and what a season would fairly cost.
+Answers are stored in your browser until you submit them; optional email is used only to share the launch offer.
+No trackers, no ads, data not shared with third parties, deleted after the pricing study concludes. Contact:
+<a href="mailto:mdpmcc@users.noreply.github.com">mdpmcc@users.noreply.github.com</a>.
+</div>
+
+<div class="card" id="formcard">
+<h1>What should a full season of club match programmes cost?</h1>
+<p class="lead">Every home championship match of your season gets a professional programme — digital
+edition fans open by QR code, print for finals, sponsor pages written, sold &amp; designed for you.
+Your volunteers approve, we produce. Please price this <strong>per season</strong> (one championship
+campaign, typically 8–12 home matches).<span id="anchorNote"></span></p>
+
+<div class="grid2">
+  <div><label>Q1 · Still too cheap to trust <span class="hint">(you'd doubt the quality)</span></label><input type="number" min="0" step="1" id="q_too_cheap" placeholder="€ / season"></div>
+  <div><label>Q2 · A bargain — great value</label><input type="number" min="0" step="1" id="q_bargain" placeholder="€ / season"></div>
+</div>
+<div class="grid2">
+  <div><label>Q3 · Getting expensive <span class="hint">(still considering)</span></label><input type="number" min="0" step="1" id="q_expensive" placeholder="€ / season"></div>
+  <div><label>Q4 · Too expensive <span class="hint">(out of the question)</span></label><input type="number" min="0" step="1" id="q_too_expensive" placeholder="€ / season"></div>
+</div>
+<p class="hint">Answer all four with different euro amounts per season. There are no wrong answers — we're calibrating launch pricing.</p>
+<p class="err" id="vwErr">Please enter four different positive amounts (Q4 &gt; Q3 &gt; Q2 makes sense for most people).</p>
+
+<h2>Q5 · At the price shown above, would your club buy?</h2>
+<p class="hint" id="ggPriceNote"></p>
+<div class="radio-row"><input type="radio" name="gg" id="gg1" value="definitely"><label for="gg1">Definitely yes</label></div>
+<div class="radio-row"><input type="radio" name="gg" id="gg2" value="probably"><label for="gg2">Probably yes</label></div>
+<div class="radio-row"><input type="radio" name="gg" id="gg3" value="unsure"><label for="gg3">Unsure</label></div>
+<div class="radio-row"><input type="radio" name="gg" id="gg4" value="probably_not"><label for="gg4">Probably not</label></div>
+<div class="radio-row"><input type="radio" name="gg" id="gg5" value="no"><label for="gg5">Definitely not</label></div>
+
+<h2>Q6 · Which best describes your role in the club?</h2>
+<select id="q_role">
+  <option value="">— select —</option>
+  <option>Club secretary</option>
+  <option>Club PRO / communications officer</option>
+  <option>Treasurer / finance officer</option>
+  <option>Chairperson / committee member</option>
+  <option>Divisional / county board officer</option>
+  <option>Club sponsor / local business owner</option>
+  <option>Other (player, parent, supporter)</option>
+</select>
+
+<div class="grid2">
+<div>
+<h2>Q7 · What does your club play?</h2>
+<select id="q_sport">
+  <option value="">— select —</option>
+  <option>Football (senior/intermediate)</option>
+  <option>Hurling (senior/intermediate)</option>
+  <option>Junior/bottom-tier or development team</option>
+  <option>Ladies football and/or camogie</option>
+  <option>Multiple codes (e.g. football &amp; hurling)</option>
+  <option>Divisional board (multiple clubs)</option>
+</select>
+</div>
+<div>
+<h2>Q8 · How many members / adult players approx?</h2>
+<select id="q_size">
+  <option value="">— select —</option>
+  <option>Under 150</option>
+  <option>150–400</option>
+  <option>400–800</option>
+  <option>Over 800</option>
+  <option>N/A — divisional board</option>
+</select>
+</div>
+</div>
+
+<h2>Q9 · What does your club produce for match day today? <span class="hint">(tick all that apply)</span></h2>
+<div class="check-row"><input type="checkbox" id="cur_teamsheet" value="teamsheet"><label for="cur_teamsheet">Free teamsheets (printed / shared)</label></div>
+<div class="check-row"><input type="checkbox" id="cur_programme" value="programme"><label for="cur_programme">A real match programme, produced by volunteers</label></div>
+<div class="check-row"><input type="checkbox" id="cur_board" value="county_board"><label for="cur_board">County / divisional board provides programmes</label></div>
+<div class="check-row"><input type="checkbox" id="cur_none" value="nothing"><label for="cur_none">Nothing — nothing on match day</label></div>
+<div class="check-row"><input type="checkbox" id="cur_other" value="other"><label for="cur_other">Something else</label></div>
+
+<h2>Q10 · Who would fund it in your club? <span class="hint">(tick all that apply)</span></h2>
+<div class="check-row"><input type="checkbox" id="fund_club" value="club_funds"><label for="fund_club">Club funds / membership fees</label></div>
+<div class="check-row"><input type="checkbox" id="fund_sponsor" value="sponsor_money"><label for="fund_sponsor">Sponsors (ads in the programme)</label></div>
+<div class="check-row"><input type="checkbox" id="fund_sales" value="cover_sales"><label for="fund_sales">Sales at the gate (cover price)</label></div>
+<div class="check-row"><input type="checkbox" id="fund_none" value="no_budget"><label for="fund_none">No budget for this</label></div>
+
+<h2>Q11 · What would make your club say yes? <span class="hint">(optional)</span></h2>
+<input type="text" id="q_barrier" maxlength="250" placeholder="e.g. only if sponsors cover it, only if it's digital, needs to be in Irish…">
+
+<h2>Q12 · Email for early access <span class="hint">(optional)</span></h2>
+<input type="email" id="q_email" placeholder="you@club.ie">
+<p class="hint">Only used to share the launch offer and study results. Skip if you prefer.</p>
+
+<br>
+<button class="btn" onclick="submitSurvey()">Submit answers</button>
+<span class="err" id="genErr"></span>
+</div>
+
+<div class="card done" id="donecard">
+  <h2>✓ Response captured — thank you!</h2>
+  <p style="margin:14px 0">Your answers are saved in this browser. To make sure they reach us, tap one:</p>
+  <button class="btn" onclick="mailtoResponse()">Send by email</button>
+  &nbsp;
+  <button class="btn secondary" onclick="downloadJson()">Download response file</button>
+  <p class="hint" style="margin-top:14px">Email opens pre-filled — just press send. Or send the downloaded file to
+  <strong>mdpmcc@users.noreply.github.com</strong>. Either way, thank you for helping set fair Irish pricing.</p>
+</div>
+
+<footer>Club Programmes IE pricing study · noindex · GDPR-minimal</footer>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const variant = (params.get('variant') || 'A').toUpperCase();
+const anchor = parseFloat(params.get('price') || '250');
+document.getElementById('anchorNote').textContent = ` Shown price on the page you came from: €${anchor}/season.`;
+document.getElementById('ggPriceNote').textContent = `Assume €${anchor} per season, cancel anytime, no contract.`;
+
+function vwAnswers(){
+  const g=id=>parseFloat(document.getElementById(id).value);
+  return {too_cheap:g('q_too_cheap'), bargain:g('q_bargain'), expensive:g('q_expensive'), too_expensive:g('q_too_expensive')};
+}
+
+function submitSurvey(){
+  const vw = vwAnswers();
+  const vals = Object.values(vw);
+  const gg = document.querySelector('input[name=gg]:checked');
+  const role = document.getElementById('q_role').value;
+  document.getElementById('vwErr').style.display='none';
+  document.getElementById('genErr').textContent='';
+  if(vals.some(v=>!isFinite(v)||v<0)){ document.getElementById('vwErr').style.display='inline'; return; }
+  if(new Set(vals).size!==4){ document.getElementById('vwErr').style.display='inline'; return; }
+  if(!(vw.too_expensive>=vw.expensive && vw.expensive>=vw.bargain && vw.bargain>=vw.too_cheap)){ document.getElementById('vwErr').style.display='inline'; return; }
+  if(!gg){ document.getElementById('genErr').textContent='Pick an answer for Q5.'; return; }
+  if(!role){ document.getElementById('genErr').textContent='Pick an answer for Q6.'; return; }
+
+  const cur=[],fund=[];
+  document.querySelectorAll('#cur_teamsheet,#cur_programme,#cur_board,#cur_none,#cur_other').forEach(c=>{if(c.checked)cur.push(c.value)});
+  document.querySelectorAll('#fund_club,#fund_sponsor,#fund_sales,#fund_none').forEach(c=>{if(c.checked)fund.push(c.value)});
+  const resp = {
+    ts:new Date().toISOString(), variant, anchor_price:anchor,
+    ...vw,
+    gg_at_anchor:gg.value,
+    role:role,
+    sport:document.getElementById('q_sport').value,
+    size:document.getElementById('q_size').value,
+    current:cur.join('|'),
+    funding:fund.join('|'),
+    barrier:document.getElementById('q_barrier').value.trim(),
+    email:document.getElementById('q_email').value.trim()
+  };
+  const key='gaa_programme_responses';
+  const arr=JSON.parse(localStorage.getItem(key)||'[]');
+  arr.push(resp);
+  localStorage.setItem(key,JSON.stringify(arr));
+  document.getElementById('formcard').style.display='none';
+  document.getElementById('donecard').style.display='block';
+  window.__last=resp;
+}
+
+function downloadJson(){
+  const blob=new Blob([JSON.stringify(window.__last,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='gaa-programme-response.json'; a.click();
+}
+
+function csvOf(arr){
+  if(!arr.length) return '';
+  const cols=Object.keys(arr[0]);
+  const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  return cols.join(',')+'\n'+arr.map(r=>cols.map(c=>esc(r[c])).join(',')).join('\n');
+}
+function downloadCsvAll(){
+  const arr=JSON.parse(localStorage.getItem('gaa_programme_responses')||'[]');
+  const blob=new Blob([csvOf(arr)],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='gaa-programme-responses.csv'; a.click();
+}
+
+function mailtoResponse(){
+  const r=window.__last;
+  const body=encodeURIComponent(JSON.stringify(r,null,2));
+  location.href=`mailto:mdpmcc@users.noreply.github.com?subject=${encodeURIComponent('GAA programme pricing response ['+variant+']')}&body=${body}`;
+}
+</script>
+</body>
+</html>

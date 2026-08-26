@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Club Programmes IE — response collector (operator only)</title>
+<meta name="robots" content="noindex">
+<style>
+ body{font-family:'Segoe UI',system-ui,sans-serif;max-width:760px;margin:30px auto;padding:0 20px;color:#12331f;line-height:1.5}
+ textarea{width:100%;height:120px;font-family:monospace;font-size:13px;padding:10px;border:1px solid #c3ced9;border-radius:8px}
+ button{background:#1e7a44;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-weight:700;cursor:pointer;margin:6px 6px 6px 0}
+ pre{background:#f2f5f8;padding:12px;border-radius:8px;font-size:12.5px;overflow:auto}
+</style>
+</head>
+<body>
+<h1>Response collector</h1>
+<p>Paste one or more survey response JSON blobs below (from email submissions or downloaded files).
+Each is validated and appended to this browser's store, then exported as CSV for the evidence file.</p>
+<textarea id="box" placeholder='{"ts":"2026-08-26T…","variant":"A","anchor_price":250,…}'></textarea>
+<button onclick="ingest()">Ingest pasted JSON</button>
+<button onclick="downloadCsvAll()">Export CSV of all stored responses</button>
+<button onclick="wipe()">Wipe store</button>
+<pre id="out">Stored responses: 0</pre>
+<script>
+const KEY='gaa_programme_collector';
+function load(){return JSON.parse(localStorage.getItem(KEY)||'[]')}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));document.getElementById('out').textContent='Stored responses: '+a.length+'\n\n'+JSON.stringify(a.slice(-3),null,1)}
+save(load());
+function ingest(){
+  const t=document.getElementById('box').value.trim();
+  if(!t)return;
+  let ok=0,bad=0;
+  // split concatenated objects
+  const parts=t.replace(/\}\s*\{/g,'}|{').split('|');
+  const arr=load();
+  for(const p of parts){
+    try{const o=JSON.parse(p);
+      if(!('variant'in o)||!('too_cheap'in o)) throw new Error('missing fields');
+      arr.push(o);ok++;
+    }catch(e){bad++;}
+  }
+  save(arr);document.getElementById('box').value='';
+  alert(`ingested ${ok}, rejected ${bad}`);
+}
+function csvOf(arr){
+  if(!arr.length)return'';
+  const cols=[...arr.reduce((s,o)=>{Object.keys(o).forEach(k=>s.add(k));return s},new Set())];
+  const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  return cols.join(',')+'\n'+arr.map(r=>cols.map(c=>esc(r[c])).join(',')).join('\n');
+}
+function downloadCsvAll(){
+  const blob=new Blob([csvOf(load())],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gaa-programme-pricing-responses.csv';a.click();
+}
+function wipe(){if(confirm('Delete all stored responses in THIS browser?')){localStorage.removeItem(KEY);save([])}}
+// auto-ingest ?d=<urlencoded json> (used by QR/link flows)
+const p=new URLSearchParams(location.search);
+if(p.get('d')){try{const o=JSON.parse(decodeURIComponent(p.get('d')));const a=load();a.push(o);save(a);alert('Auto-ingested link response.')}catch(e){}}
+</script>
+</body>
+</html>
